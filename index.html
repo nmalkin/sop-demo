@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+        #target {
+            min-width: 300px;
+        }
+        #frame {
+            border: 2px solid red;
+            min-width: 600px;
+            min-height: 200px;
+        }
+    </style>
+    </head>
+    <body>
+        <p>This page is: <code id='url'></code></p>
+        <p>Background color: <input id='my_color' type='color'> </p>
+        <p>Embed in iframe: <input id='target' type='url' value='http://'></p>
+
+        <iframe id='frame'></iframe>
+        <p>
+            Embedded color: <input id='frame_color' type='color'>
+            <input id='get_color' type='button' value='Update!'>
+        </p>
+
+        <script>
+        document.getElementById('url').textContent = document.location;
+
+        document.getElementById('my_color').addEventListener('change',  function() {
+            document.body.bgColor = document.getElementById('my_color').value;
+        });
+
+        document.getElementById('target').addEventListener('change',  function() {
+            document.getElementById('frame').src = document.getElementById('target').value;
+        });
+
+        document.getElementById('get_color').addEventListener('click',  function() {
+            try {
+                let frameColor = frames[0].document.body.bgColor;
+                document.getElementById('frame_color').value = frameColor;
+            } catch(e) {
+                alert(e);
+            }
+        });
+        </script>
+    </body>
+</html>
